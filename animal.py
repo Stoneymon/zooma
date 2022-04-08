@@ -33,6 +33,3 @@ class Animal:
             enclosure = zoo.get_enclosure(self.enclosure)
             enclosure.animals.remove(self)
         zoo.removeAnimal(self)
-
-    def new_enclosure(self, enclosure_id):
-        self.enclosure = enclosure_id

@@ -66,9 +66,15 @@ class Zoo:
             if enclosure.enclosure_id == enclosure_id:
                 return enclosure
 
+    def set_enclosure(self, animal, enclosure):
+        if animal.enclosure:
+            old_enclosure = self.get_enclosure(animal.enclosure)
+            old_enclosure.remove_animal(animal)
+        enclosure.add_animal(animal)
+
     def remove_enclosure(self, enclosure):
         if len(self.enclosures) < 2:
-            return (print("You have to create another enclosure first"))
+            return None
         enclosurelist = []
         for enclosures in self.enclosures:
             if enclosures != enclosure:
@@ -76,6 +82,7 @@ class Zoo:
         new_enclosure = random.choice(enclosurelist)
         new_enclosure.animals += enclosure.animals
         self.enclosures.remove(enclosure)
+        return True
 
     def add_employee(self, employee):
         self.employees.append(employee)
@@ -87,7 +94,7 @@ class Zoo:
 
     def remove_employee(self, employee):
         if len(self.employees) < 2:
-            return (print("You have to hire anothe employee first"))
+            return None
         employeelist = []
         for employees in self.employees:
             if employees != employee:
@@ -96,6 +103,7 @@ class Zoo:
         for animal in employee.animals:
             new_caretaker.add_animal(animal)
         self.employees.remove(employee)
+        return True
 
     def employee_stats(self):
         stats = {}
@@ -104,10 +112,7 @@ class Zoo:
             number_of_animals.append(len(employee.animals))
         stats['min'] = min(number_of_animals)
         stats['max'] = max(number_of_animals)
-        number_of_animals_with_employee = 0
-        for number in number_of_animals:
-            number_of_animals_with_employee += number
-        stats['average'] = number_of_animals_with_employee / len(self.employees)
+        stats['average'] = len(self.animals) / len(self.employees)
         return stats
 
     def create_cp(self):

@@ -1,4 +1,5 @@
 import uuid
+from animal import Animal
 class Caretaker:
     def __init__(self, name, address):
         self.employee_id = str(uuid.uuid4())
