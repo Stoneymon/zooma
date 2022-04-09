@@ -60,12 +60,6 @@ def test_set_home(tiger1, enclosure1):
     assert(len(enclosure1.animals)==1)
     assert (tiger1.enclosure == enclosure1.enclosure_id)
 
-# def test_change_home(tiger1, enclosure1):
-#     tiger1.new_enclosure(enclosure1.enclosure_id)
-#     assert(tiger1.enclosure == enclosure1.enclosure_id)
-#     enclosure1.add_animal(tiger1)
-#     assert(len(enclo))
-
 def test_birth(tiger1, enclosure1, zoo1):
     zoo1.addAnimal(tiger1)
     zoo1.add_enclosure(enclosure1)
