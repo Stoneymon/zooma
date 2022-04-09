@@ -1,6 +1,5 @@
 import uuid
 import datetime
-from animal import Animal
 class Enclosure:
     def __init__(self, name, area):
         self.enclosure_id = str(uuid.uuid4())
@@ -13,13 +12,16 @@ class Enclosure:
         self.cleaning_record.append(datetime.datetime.now())
 
     def add_animal(self, animal):
+        #adds animal into enclosures list of animals and sets animals enclosure value to enclosures id
         self.animals.append(animal)
         animal.enclosure = self.enclosure_id
 
     def remove_animal(self, animal):
+        #removes animal from enclosures list of animals
         self.animals.remove(animal)
 
     def multiple_species(self):
+        #checks if there are animals of different species in the enclosure
         if not self.animals:
             return False
         species1 = self.animals[0].species_name
@@ -28,6 +30,7 @@ class Enclosure:
                 return True
 
     def space_per_animal(self):
+        #checks the available space per animal
         if self.animals:
             return (self.area/len(self.animals))
         else:

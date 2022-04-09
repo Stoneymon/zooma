@@ -139,7 +139,10 @@ class Death(Resource):
 class AnimalStats(Resource):
     def get(self):
         stats = my_zoo.get_stats()
-        return jsonify(stats)
+        if stats:
+            return jsonify(stats)
+        else:
+            return jsonify("no enclosures")
 
 @zooma_api.route('/enclosure')
 class AddEnclosure(Resource):
@@ -232,7 +235,11 @@ class EmployeesAnimals(Resource):
 @zooma_api.route('/employees/stats')
 class EmployeeStats(Resource):
     def get(self):
-        return jsonify(my_zoo.employee_stats())
+        stats = my_zoo.employee_stats()
+        if stats:
+            return jsonify(stats)
+        else:
+            return jsonify("No employees or no animals with caretakers")
 
 @zooma_api.route('/employee/<employee_id>')
 class EmployeeID(Resource):

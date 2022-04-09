@@ -56,10 +56,9 @@ def test_add_enclosure(zoo1):
     assert(len(zoo1.enclosures)==1)
 
 def test_set_home(tiger1, enclosure1):
-    tiger1.new_enclosure(enclosure1.enclosure_id)
-    assert (tiger1.enclosure == enclosure1.enclosure_id)
     enclosure1.add_animal(tiger1)
     assert(len(enclosure1.animals)==1)
+    assert (tiger1.enclosure == enclosure1.enclosure_id)
 
 # def test_change_home(tiger1, enclosure1):
 #     tiger1.new_enclosure(enclosure1.enclosure_id)
@@ -70,7 +69,6 @@ def test_set_home(tiger1, enclosure1):
 def test_birth(tiger1, enclosure1, zoo1):
     zoo1.addAnimal(tiger1)
     zoo1.add_enclosure(enclosure1)
-    tiger1.new_enclosure(enclosure1.enclosure_id)
     enclosure1.add_animal(tiger1)
     child = tiger1.gives_birth(zoo1)
 
@@ -83,7 +81,6 @@ def test_birth(tiger1, enclosure1, zoo1):
 def test_death(tiger1, enclosure1, zoo1):
     zoo1.addAnimal(tiger1)
     zoo1.add_enclosure(enclosure1)
-    tiger1.new_enclosure(enclosure1.enclosure_id)
     enclosure1.add_animal(tiger1)
     tiger1.dies(zoo1)
 
@@ -108,6 +105,12 @@ def test_stat(tiger1, tiger2, panther1, enclosure1, zoo1, caretaker1):
     assert(zoo1.get_stats()['average number of animals per enclosure'] == 3)
     assert(zoo1.get_stats()['Number of enclosures with multiple species'] == 1)
     assert(zoo1.get_stats()['Space per animal in each enclosure'][enclosure1.enclosure_id] == 50)
+
+def test_stat_no_employees(zoo1):
+    assert(not zoo1.get_stats()['animals per species'])
+    assert(not zoo1.get_stats()['average number of animals per enclosure'])
+    assert(zoo1.get_stats()['Number of enclosures with multiple species'] == 0)
+    assert(not zoo1.get_stats()['Space per animal in each enclosure'])
 
 def test_cleaning_enclosure(zoo1, enclosure1):
     zoo1.add_enclosure(enclosure1)
@@ -161,6 +164,9 @@ def test_employee_stats(zoo1, caretaker1, tiger1, tiger2, panther1, enclosure1):
     assert(zoo1.employee_stats()['min'] == 0)
     assert(zoo1.employee_stats()['max'] == 2)
     assert(zoo1.employee_stats()['average'] == 1)
+
+def test_employee_stats_no_employees(zoo1):
+    assert(not zoo1.employee_stats())
 
 def test_remove_employee(zoo1, caretaker1, tiger1, tiger2, panther1):
     caretaker2 = Caretaker("Ekbal", "Vienna")

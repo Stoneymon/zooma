@@ -20,15 +20,18 @@ class Animal:
         self.medical_record.append(datetime.datetime.now())
 
     def gives_birth(self, zoo):
+        #creates a child animal that shares the mother's species name and common name
         child = Animal(self.species_name, self.common_name, 0)
         if self.enclosure:
-            child.enclosure = self.enclosure
+            #child gets put into the same enclosure as mother animal
             enclosure = zoo.get_enclosure(self.enclosure)
-            enclosure.animals.append(child)
+            enclosure.add_animal(child)
+        #child gets put into zoo
         zoo.addAnimal(child)
         return child
 
     def dies(self, zoo):
+        #animal gets removed from zoo and from enclosure
         if self.enclosure:
             enclosure = zoo.get_enclosure(self.enclosure)
             enclosure.animals.remove(self)
