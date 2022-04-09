@@ -69,6 +69,10 @@ class Animal_ID(Resource):
         if enclosure_id:
             enclosure = my_zoo.get_enclosure(enclosure_id)
             enclosure.remove_animal(targeted_animal)
+        employee_id = targeted_animal.care_taker
+        if employee_id:
+            employee = my_zoo.get_employee(employee_id)
+            employee.remove_animal(targeted_animal)
         my_zoo.removeAnimal(targeted_animal)
         return jsonify(f"Animal with ID {animal_id} was removed")
 

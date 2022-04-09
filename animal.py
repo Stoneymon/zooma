@@ -35,4 +35,7 @@ class Animal:
         if self.enclosure:
             enclosure = zoo.get_enclosure(self.enclosure)
             enclosure.animals.remove(self)
+        if self.care_taker:
+            employee = zoo.get_employee(self.care_taker)
+            employee.remove_animal(self)
         zoo.removeAnimal(self)
